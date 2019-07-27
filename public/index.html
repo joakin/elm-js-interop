@@ -1,28 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      /* you can style your program here */
-    </style>
+    <style></style>
   </head>
   <body>
     <main></main>
+    <script src="./elm-js-interop.js"></script>
     <script src="./elm.js"></script>
     <script>
-      var p = new Proxy(
-        {},
-        {
-          has(target, key) {
-            return true;
-          },
-          get(target, prop, receiver) {
-            return eval(prop);
-          }
-        }
-      );
       var app = Elm.Main.init({
-        node: document.querySelector("main"),
-        flags: p
+        node: document.querySelector("main")
       });
     </script>
   </body>

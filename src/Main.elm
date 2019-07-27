@@ -2,35 +2,36 @@ module Main exposing (main)
 
 import Browser
 import Html exposing (Html, br, div, p, text)
-import JsInterop exposing (..)
+import Js exposing (..)
 import Json.Decode as D exposing (Decoder)
+import Json.Encode as E
 
 
 type alias Model =
-    { js : Interop, msgs : List ( String, String ) }
+    { msgs : List ( String, String ) }
 
 
 init : Flags -> ( Model, Cmd Msg )
-init js =
+init () =
     let
         msgs =
             [ ( "window.confirm"
-              , eval js "confirm(\"wot\")" D.bool
+              , eval "confirm(\"wot\")" D.bool
                     |> Result.map boolToString
                     |> resultToString
               )
             , ( "navigator.onLine"
-              , eval js "navigator.onLine" D.bool
+              , eval "navigator.onLine" D.bool
                     |> Result.map boolToString
                     |> resultToString
               )
             , ( "navigator.languages"
-              , eval js "navigator.languages" (D.list D.string)
+              , eval "navigator.languages" (D.list D.string)
                     |> Result.map (String.join ", ")
                     |> resultToString
               )
             , ( "relative date (Intl.RelativeTimeFormat)"
-              , eval js """(() => {
+              , eval """(() => {
                     var rtf = new Intl.RelativeTimeFormat('ca', { style: 'narrow' });
                     return [
                         rtf.format(-2, 'day'),
@@ -43,7 +44,7 @@ init js =
               )
             ]
     in
-    ( { js = js, msgs = msgs }, Cmd.none )
+    ( { msgs = msgs }, Cmd.none )
 
 
 type Msg
@@ -64,7 +65,7 @@ view model =
 
 
 type alias Flags =
-    Interop
+    ()
 
 
 main : Program Flags Model Msg
@@ -77,7 +78,7 @@ main =
         }
 
 
-resultToString : Result JsInterop.Error String -> String
+resultToString : Result Js.Error String -> String
 resultToString r =
     case r of
         Ok result ->
