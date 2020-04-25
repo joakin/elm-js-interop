@@ -109,11 +109,11 @@ view model =
               , ""
               )
             , ( "relative date (Intl.RelativeTimeFormat)"
-              , eval [] """(() => {
+              , eval [ E.int -2, E.int -3 ] """(() => {
                     var rtf = new Intl.RelativeTimeFormat('ca', { style: 'narrow' });
                     return [
-                        rtf.format(-2, 'day'),
-                        rtf.format(-3, 'quarter')
+                        rtf.format(args[0], 'day'),
+                        rtf.format(args[1], 'quarter')
                     ];
                 })()
                 """ (D.list D.string)

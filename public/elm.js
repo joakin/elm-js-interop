@@ -5469,6 +5469,7 @@ var $author$project$Js$eval = F3(
 										params)))
 							])))));
 	});
+var $elm$json$Json$Encode$int = _Json_wrap;
 var $elm$core$Maybe$map = F2(
 	function (f, maybe) {
 		if (!maybe.$) {
@@ -5553,8 +5554,12 @@ var $author$project$Main$view = function (model) {
 				$elm$core$String$join(', '),
 				A3(
 					$author$project$Js$eval,
-					_List_Nil,
-					'(() => {\n                    var rtf = new Intl.RelativeTimeFormat(\'ca\', { style: \'narrow\' });\n                    return [\n                        rtf.format(-2, \'day\'),\n                        rtf.format(-3, \'quarter\')\n                    ];\n                })()\n                ',
+					_List_fromArray(
+						[
+							$elm$json$Json$Encode$int(-2),
+							$elm$json$Json$Encode$int(-3)
+						]),
+					'(() => {\n                    var rtf = new Intl.RelativeTimeFormat(\'ca\', { style: \'narrow\' });\n                    return [\n                        rtf.format(args[0], \'day\'),\n                        rtf.format(args[1], \'quarter\')\n                    ];\n                })()\n                ',
 					$elm$json$Json$Decode$list($elm$json$Json$Decode$string)))),
 			_Utils_Tuple2(
 			'Incorrect return type, getting an int but expecting a string',
