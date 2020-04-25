@@ -12,6 +12,8 @@ See `src/Main.elm` for examples of usage of the sync and async FFI. Within the
 boundaries of possibility, the library still tries to encapsulate JS code
 running to not break the Elm runtime or your app.
 
+[Live example from the Main.elm code](http://joakin.github.io/elm-js-interop)
+
 If you want to add this to your application, copy `src/Js.elm` to your app, and
 include the JS file in `public/elm-js-interop.js`.
 
