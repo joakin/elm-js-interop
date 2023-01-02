@@ -1,4 +1,4 @@
-let global =
+let globalThis =
   typeof window !== "undefined"
     ? window
     : typeof global !== "undefined"
@@ -7,7 +7,7 @@ let global =
 
 Object.defineProperty(Object.prototype, "__elm_interop", {
   set([code, ...args]) {
-    global.args = args;
+    globalThis.args = args;
     try {
       this.__elm_interop_result = eval(`
         (() => {
@@ -21,7 +21,7 @@ Object.defineProperty(Object.prototype, "__elm_interop", {
     } catch (err) {
       this.__elm_interop_result = { tag: "Error", error: err };
     }
-    delete global.args;
+    delete globalThis.args;
   },
   get() {
     return this.__elm_interop_result;
@@ -43,7 +43,7 @@ Object.defineProperty(Object.prototype, "__elm_interop_async", {
   },
 });
 
-global.setTimeout = (callback, time, ...args) => {
+globalThis.setTimeout = (callback, time, ...args) => {
   if (time === -666 && __elm_interop_nextTask != null) {
     const [token, code, args] = __elm_interop_nextTask;
     __elm_interop_nextTask = null;
